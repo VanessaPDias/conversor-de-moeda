@@ -4,9 +4,103 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <script src="script.js"></script>
   <title>Conversor de Moedas</title>
 </head>
-<body>
+<body style="background-image: url(https://securitystbk.com/wp-content/uploads/2017/03/blue-color-gradient-wallpaper-4.jpg);">
+  <div class="container">
+
+    <div class="row align-items-center min-vh-100">
+      <div class="col-12">
+        <div class="row">
+          <div class="col text-center" style="color: #fff;">
+            <h2>Conversor de Moeda</h2>
+          </div>
+        </div>
+        <form>
+          <div class="main row mt-5">
+            <div class="col shadow p-3 mb-5 bg-body rounded">
+              <div class="dados-conversao row">
+                <div class="col-1"></div>
+                <div class="col-sm-12 mb-2" id="quantia">
+                  <label for="input-quantia">Valor</label>
+                  <div class="input-group mt-1">
+                    <span class="input-group-text" id="icone-moeda">$</span>
+                    <input type="text" id="input-quantia" class="form-control" inputmode="decimal" autocomplete="off" value="1,00" >
+                  </div>
+                </div>
+                <div class="col-sm-12" id="moeda-origem">
+                  <label for="input-moeda-origem">De</label>
+                  <div class="input-group mt-1">
+                    <label class="input-group-text" for="input-moeda-origem">
+                      <img src="" alt="">
+                    </label>
+                    <select class="form-select" id="input-moeda-origem">
+                      <option selected>USD - Dólar dos EUA</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-12 mb-2" id="inverter-dados">
+                  <label for=""></label>
+                  <div class="mt-1">
+                    <button type="button" class="btn btn-outline-primary rounded-circle" onclick="inverterMoeda()"><i class="bi bi-arrow-down-up"></i></button>
+                  </div>
+                </div>
+                <div class="col-sm-12" id="moeda-destino">
+                  <label for="input-moeda-destuno">Para</label>
+                  <div class="input-group mt-1">
+                    <label class="input-group-text" for="input-moeda-destuno">
+                      <img src="" alt="">
+                    </label>
+                    <select class="form-select" id="input-moeda-destuno">
+                      <option selected>USD - Dólar dos EUA</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-1"></div>
+              </div>
+              <div class="row mt-5">
+                <div class="col-1"></div>
+                <div class="col-sm-6">
+                  <div class="text-center">
+                    <button type="button" class="btn btn-primary" onclick="converter()">Converter</button>
+                  </div>
+                  <div>
+                    <p></p>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div>
+                   <p id="resultado">1,00 Dólar dos EUA =</p>
+                   <p id="quantia-conversao">1,00
+                    <span></span>
+                    Dólar dos EUA
+                   </p> 
+                  </div>
+                  
+                  <div id="valor-unitario">
+                    <p>1 USD = 1,0000 USD</p>
+                    <p></p>
+                  </div>
+                </div>
+                <div class="col-1"></div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+  </div>
   
 </body>
 </html>
+
