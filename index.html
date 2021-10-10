@@ -27,7 +27,7 @@
                 <div class="col-sm-12 mb-2" id="quantia">
                   <label for="input-quantia">Valor</label>
                   <div class="input-group mt-1">
-                    <span class="input-group-text" id="icone-moeda">$</span>
+                    <span class="input-group-text" id="icone-moeda"></span>
                     <input type="text" id="input-quantia" class="form-control" inputmode="decimal" autocomplete="off" value="1,00" >
                   </div>
                 </div>
@@ -38,14 +38,14 @@
                       <img src="" alt="">
                     </label>
                     <select class="form-select" id="input-moeda-origem">
-                      <option selected>USD - Dólar dos EUA</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                      <option value="USD">USD - Dólar dos EUA</option>
+                      <option value="EUR">EUR - Euro</option>
+                      <option value="BRL">BRL - Real Brasileiro</option>
+                      <option value="GBP">GBP - Libra Esterlina</option>
                     </select>
                   </div>
                 </div>
-                <div class="col-sm-12 mb-2" id="inverter-dados">
+                <div class="col-sm-12 mb-3" id="inverter-dados">
                   <label for=""></label>
                   <div class="mt-1">
                     <button type="button" class="btn btn-outline-primary rounded-circle" onclick="inverterMoeda()"><i class="bi bi-arrow-down-up"></i></button>
@@ -54,20 +54,20 @@
                 <div class="col-sm-12" id="moeda-destino">
                   <label for="input-moeda-destuno">Para</label>
                   <div class="input-group mt-1">
-                    <label class="input-group-text" for="input-moeda-destuno">
+                    <label class="input-group-text" for="input-moeda-destino">
                       <img src="" alt="">
                     </label>
-                    <select class="form-select" id="input-moeda-destuno">
-                      <option selected>USD - Dólar dos EUA</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                    <select class="form-select" id="input-moeda-destino">
+                      <option value="USD">USD - Dólar dos EUA</option>
+                      <option value="EUR">EUR - Euro</option>
+                      <option value="BRL">BRL - Real Brasileiro</option>
+                      <option value="GBP">GBP - Libra Esterlina</option>
                     </select>
                   </div>
                 </div>
                 <div class="col-1"></div>
               </div>
-              <div class="row mt-5">
+              <div class="row mt-4">
                 <div class="col-1"></div>
                 <div class="col-sm-6">
                   <div class="text-center">
