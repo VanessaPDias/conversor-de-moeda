@@ -8,96 +8,250 @@ function pegarDadosInput() {
   const opcoesDestino = document.querySelector("#input-moeda-destino");
   const opcaoDestinoSelecionada = opcoesDestino.options[opcoesDestino.selectedIndex].value;
   
-  return {valor, opcaoOrigemSelecionada, opcaoDestinoSelecionada}
+  return {valor, opcaoOrigemSelecionada, opcaoDestinoSelecionada};
+}
+
+function pegarElementosResultado() {
+  const valorMoedaOrigem = document.querySelector("#quantia-moedaOrigem");
+  const valorMoedaDestino = document.querySelector("#quantiaConvertida-moedaDestino");
+  const valorUnitarioMoedaOrigem = document.querySelector("#valor-unitario-origem");
+  const valorUnitarioMoedaDestino = document.querySelector("#valor-unitario-destino");
+
+  return {valorMoedaOrigem, valorMoedaDestino, valorUnitarioMoedaOrigem, valorUnitarioMoedaDestino};
 }
 
 function converter(){
-  let dadosParaConversao = pegarDadosInput();
-  
+  const dadosParaConversao = pegarDadosInput();
   let chaveParaConversao = dadosParaConversao.opcaoOrigemSelecionada + "-" + dadosParaConversao.opcaoDestinoSelecionada;
+  let valorConvertido;
+  let moedaOrigemSingular;
+  let moedaOrigemPlural;
+  let moedaDestinoSingular;
+  let moedaDestinoPlural;
+  let cotacao;
   
-  for(let i = 0; i < moedas.length; i++){
-    if(moedas[i].chave == chaveParaConversao){
-      const valorConvertido = moedas[i].cotacao * dadosParaConversao.valor;
-      
-      console.log(chaveParaConversao, valorConvertido)
+
+  for( let i = 0; i < moedas.length; i++){
+    
+    if(chaveParaConversao == moedas[i].chave){
+      valorConvertido = dadosParaConversao.valor * moedas[i].cotacao;
+      moedaOrigemSingular = moedas[i].origem.singular;
+      moedaOrigemPlural = moedas[i].origem.plural;
+      moedaDestinoSingular = moedas[i].destino.singular;
+      moedaDestinoPlural = moedas[i].destino.plural;
+      cotacao = moedas[i].cotacao;
     }
   }
+  imprimirResultadoNaTela(valorConvertido, moedaOrigemSingular, moedaOrigemPlural, moedaDestinoSingular,moedaDestinoPlural, cotacao)
+}
+
+function imprimirResultadoNaTela(valorConvertido, moedaOrigemSingular, moedaOrigemPlural, moedaDestinoSingular,moedaDestinoPlural, cotacao) {
+  const dadosDeEntrada = pegarDadosInput()
+  const elementosParaImprimirDados = pegarElementosResultado();
+  if(dadosDeEntrada.valor > 1){
+    moedaOrigemSingular = moedaOrigemPlural;
+  };
+  if(valorConvertido > 1){
+    moedaDestinoSingular = moedaDestinoPlural;
+  }
   
+  elementosParaImprimirDados.valorMoedaOrigem.innerHTML = `${dadosDeEntrada.valor} ${moedaOrigemSingular} = `;
+  elementosParaImprimirDados.valorMoedaDestino.innerHTML = `${valorConvertido} ${moedaDestinoSingular}`
+  elementosParaImprimirDados.valorUnitarioMoedaOrigem.innerHTML = `1 ${dadosDeEntrada.opcaoOrigemSelecionada} = ${cotacao} ${dadosDeEntrada.opcaoDestinoSelecionada}`;
 }
 
   const moedas = [
     {
+      chave: "USD-USD",
+      cotacao: 1.00,
+      origem: {
+        singular: "Dólar dos EUA",
+        plural: "Dólares dos EUA"
+      },
+      destino: {
+        singular: "Dólar dos EUA",
+        plural: "Dólares dos EUA"
+      } 
+    },
+    {
       chave: "USD-EUR",
-      origem: "Dólar dos EUA",
-      destino: "Euro",
-      cotacao: 0.86
+      cotacao: 0.8675,
+      origem: {
+        singular: "Dólar dos EUA",
+        plural: "Dólares dos EUA"
+      },
+      destino: {
+        singular: "Euro",
+        plural: "Euros"
+      } 
     },
     {
       chave: "USD-BRL",
-      origem: "Dólar dos EUA",
-      destino: "Real Brasileiro",
-      cotacao: 5.50
+      cotacao: 5.5328,
+      origem: {
+        singular: "Dólar dos EUA",
+        plural: "Dólares dos EUA"
+      },
+      destino: {
+        singular: "Real Brasileiro",
+        plural: "Reais Brasileiro"
+      }
     },
     {
       chave: "USD-GBP",
-      origem: "Dólar dos EUA",
-      destino: "Libra Esterlina",
-      cotacao: 0.73
+      cotacao: 0.7364,
+      origem: {
+        singular: "Dólar dos EUA",
+        plural: "Dólares dos EUA"
+      },
+      destino: {
+        singular: "Libra Esterlina",
+        plural: "Libras Esterlinas"
+      }
+    },
+    {
+      chave: "EUR-EUR",
+      cotacao: 1.000,
+      origem: {
+        singular: "Euro",
+        plural: "Euros"
+      },
+      destino: {
+        singular: "Euro",
+        plural: "Euros",
+      }
     },
     {
       chave: "EUR-USD",
-      origem: "Euro",
-      destino: "Dólar dos EUA",
-      cotacao: 1.15
+      cotacao: 1.1526,
+      origem: {
+        singular: "Euro",
+        plural: "Euros"
+      },
+      destino: {
+        singular: "Dólar dos EUA",
+        plural: "Dólares dos EUA",
+      }
     },
     {
       chave: "EUR-BRL",
-      origem: "Euro",
-      destino: "Real Brasileiro",
-      cotacao: 6.37
+      cotacao: 6.3772,
+      origem: {
+        singular: "Euro",
+        plural: "Euros"
+      },
+      destino: {
+        singular: "Real Brasileiro",
+        plural: "Reais Brasileiro"
+      }
     },
     {
       chave: "EUR-GBP",
-      origem: "Euro",
-      destino: "Libra Esterlina",
-      cotacao: 0.84
+      cotacao: 0.8486,
+      origem: {
+        singular: "Euro",
+        plural: "Euros"
+      },
+      destino: {
+        singular: "Libra Esterlina",
+        plural: "Libras Esterlinas"
+      }
+    },
+    {
+      chave: "BRL-BRL",
+      cotacao: 1.000,
+      origem: {
+        singular: "Real Brasileiro",
+        plural: "Reais Brasileiro"
+      },
+      destino: {
+        singular: "Real Brasileiro",
+        plural: "Reais Brasileiro"
+      }
     },
     {
       chave: "BRL-USD",
-      origem: "Real Brasileiro",
-      destino: "Dólar dos EUA",
-      cotacao: 0.18
+      cotacao: 0.1807,
+      origem: {
+        singular: "Real Brasileiro",
+        plural: "Reais Brasileiro"
+      },
+      destino: {
+        singular: "Dólar dos EUA",
+        plural: "Dólares dos EUA"
+      }
     },
     {
       chave: "BRL-EUR",
-      origem: "Real Brasileiro",
-      destino: "Euro",
-      cotacao: 0.15
+      cotacao: 0.1568,
+      origem: {
+        singular: "Real Brasileiro",
+        plural: "Reais Brasileiro"
+      },
+      destino: {
+        singular: "Euro",
+        plural: "Euros"
+      }
     },
     {
       chave: "BRL-GBP",
-      origem: "Real Brasileiro",
-      destino: "Libra Esterlina",
-      cotacao: 0.13
+      cotacao: 0.1330,
+      origem: {
+        singular: "Real Brasileiro",
+        plural: "Reais Brasileiro"
+      },
+      destino: {
+        singular: "Libra Esterlina",
+        plural: "Libras Esterlinas"
+      }
+    },
+    {
+      chave: "GBP-GBP",
+      cotacao: 1.000,
+      origem: {
+        singular: "Libra Esterlina",
+        plural: "Libras Esterlinas"
+      },
+      destino: {
+        singular: "Libra Esterlina",
+        plural: "Libras Esterlinas"
+      }
     },
     {
       chave: "GBP-USD",
-      origem: "Libra Esterlina",
-      destino: "Dólar dos EUA",
-      cotacao: 1.36
+      cotacao: 1.3581,
+      origem: {
+        singular: "Libra Esterlina",
+        plural: "Libras Esterlinas"
+      },
+      destino: {
+        singular: "Dólar dos EUA",
+        plural: "Dólares dos EUA"
+      }
     },
     {
       chave: "GBP-EUR",
-      origem: "Libra Esterlina",
-      destino: "Euro",
-      cotacao: 1.17
+      cotacao: 1.1784,
+      origem: {
+        singular: "Libra Esterlina",
+        plural: "Libras Esterlinas"
+      },
+      destino: {
+        singular: "Euro",
+        plural: "Euros"
+      }
     },
     {
       chave: "GBP-BRL",
-      origem: "Libra Esterlina",
-      destino: "Real Brasileiro",
-      cotacao: 7.50
+      cotacao: 7.5146,
+      origem: {
+        singular: "Libra Esterlina",
+        plural: "Libras Esterlinas"
+      },
+      destino: {
+        ssingular: "Real Brasileiro",
+        plural: "Reais Brasileiro"
+      }
     }
     
   ];
