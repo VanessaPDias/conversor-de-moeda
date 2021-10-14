@@ -35,7 +35,7 @@
                   <label for="input-moeda-origem">De</label>
                   <div class="input-group mt-1">
                     <label class="input-group-text" for="input-moeda-origem">
-                      <img src="" alt="">
+                      <img id="bandeira-origem" >
                     </label>
                     <select class="form-select" id="input-moeda-origem">
                       <option value="USD">USD - Dólar dos EUA</option>
@@ -48,7 +48,7 @@
                 <div class="col-sm-12 mb-3" id="inverter-dados">
                   <label for=""></label>
                   <div class="mt-1">
-                    <button type="button" class="btn btn-outline-primary rounded-circle" onclick="inverterMoeda()"><i class="bi bi-arrow-down-up"></i></button>
+                    <button type="button" class="btn btn-outline-primary rounded-circle" id="inverter-moedas"><i class="bi bi-arrow-down-up"></i></button>
                   </div>
                 </div>
                 <div class="col-sm-12" id="moeda-destino">
@@ -71,7 +71,7 @@
                 <div class="col-1"></div>
                 <div class="col-sm-6">
                   <div class="text-center">
-                    <button type="button" class="btn btn-primary" onclick="converter()">Converter</button>
+                    <button type="button" class="btn btn-primary" id="btn-converter">Converter</button>
                   </div>
                   <div>
                     <p></p>

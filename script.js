@@ -1,14 +1,17 @@
+window.onload = atribuirEvento;
+
+function atribuirEvento(){
+  document.querySelector("#btn-converter").onclick = converter;
+  document.querySelector("#inverter-moedas").onclick = inverter;
+}
 
 function pegarDadosInput() {
   const valor = parseFloat(document.querySelector("#input-quantia").value);
   
-  const opcoesOrigem = document.querySelector("#input-moeda-origem");
-  const opcaoOrigemSelecionada = opcoesOrigem.options[opcoesOrigem.selectedIndex].value;
+  const opcaoOrigem = document.querySelector("#input-moeda-origem").value;  
+  const opcaoDestino = document.querySelector("#input-moeda-destino").value;
   
-  const opcoesDestino = document.querySelector("#input-moeda-destino");
-  const opcaoDestinoSelecionada = opcoesDestino.options[opcoesDestino.selectedIndex].value;
-  
-  return {valor, opcaoOrigemSelecionada, opcaoDestinoSelecionada};
+  return {valor, opcaoOrigem, opcaoDestino};
 }
 
 function pegarElementosResultado() {
@@ -20,9 +23,24 @@ function pegarElementosResultado() {
   return {valorMoedaOrigem, valorMoedaDestino, valorUnitarioMoedaOrigem, valorUnitarioMoedaDestino};
 }
 
+function imprimirResultadoNaTela(valorConvertido, moedaOrigemSingular, moedaOrigemPlural, moedaDestinoSingular,moedaDestinoPlural, bandeiraOrigem, cotacao) {
+  const dadosDeEntrada = pegarDadosInput()
+  const elementosParaImprimirDados = pegarElementosResultado();
+  if(dadosDeEntrada.valor > 1){
+    moedaOrigemSingular = moedaOrigemPlural;
+  };
+  if(valorConvertido > 1){
+    moedaDestinoSingular = moedaDestinoPlural;
+  }
+
+  elementosParaImprimirDados.valorMoedaOrigem.innerHTML = `${dadosDeEntrada.valor} ${moedaOrigemSingular} = `;
+  elementosParaImprimirDados.valorMoedaDestino.innerHTML = `${valorConvertido} ${moedaDestinoSingular}`
+  elementosParaImprimirDados.valorUnitarioMoedaOrigem.innerHTML = `1 ${dadosDeEntrada.opcaoOrigem} = ${cotacao} ${dadosDeEntrada.opcaoDestino}`;
+}
+
 function converter(){
   const dadosParaConversao = pegarDadosInput();
-  let chaveParaConversao = dadosParaConversao.opcaoOrigemSelecionada + "-" + dadosParaConversao.opcaoDestinoSelecionada;
+  let chaveParaConversao = dadosParaConversao.opcaoOrigem + "-" + dadosParaConversao.opcaoDestino;
   let valorConvertido;
   let moedaOrigemSingular;
   let moedaOrigemPlural;
@@ -39,32 +57,34 @@ function converter(){
       moedaOrigemPlural = moedas[i].origem.plural;
       moedaDestinoSingular = moedas[i].destino.singular;
       moedaDestinoPlural = moedas[i].destino.plural;
+      bandeiraOrigem = moedas[i].origem.bandeira;
+      console.log(bandeiraOrigem)
       cotacao = moedas[i].cotacao;
     }
   }
-  imprimirResultadoNaTela(valorConvertido, moedaOrigemSingular, moedaOrigemPlural, moedaDestinoSingular,moedaDestinoPlural, cotacao)
+  imprimirResultadoNaTela(valorConvertido, moedaOrigemSingular, moedaOrigemPlural, moedaDestinoSingular,moedaDestinoPlural, bandeiraOrigem, cotacao)
 }
 
-function imprimirResultadoNaTela(valorConvertido, moedaOrigemSingular, moedaOrigemPlural, moedaDestinoSingular,moedaDestinoPlural, cotacao) {
-  const dadosDeEntrada = pegarDadosInput()
-  const elementosParaImprimirDados = pegarElementosResultado();
-  if(dadosDeEntrada.valor > 1){
-    moedaOrigemSingular = moedaOrigemPlural;
-  };
-  if(valorConvertido > 1){
-    moedaDestinoSingular = moedaDestinoPlural;
-  }
+function inverter(){
+  const opcoesOrigem = document.querySelector("#input-moeda-origem");
+  const opcoesDestino = document.querySelector("#input-moeda-destino");
+  const destino = opcoesDestino.value;
   
-  elementosParaImprimirDados.valorMoedaOrigem.innerHTML = `${dadosDeEntrada.valor} ${moedaOrigemSingular} = `;
-  elementosParaImprimirDados.valorMoedaDestino.innerHTML = `${valorConvertido} ${moedaDestinoSingular}`
-  elementosParaImprimirDados.valorUnitarioMoedaOrigem.innerHTML = `1 ${dadosDeEntrada.opcaoOrigemSelecionada} = ${cotacao} ${dadosDeEntrada.opcaoDestinoSelecionada}`;
+  opcoesDestino.value = opcoesOrigem.value;
+  opcoesOrigem.value = destino;
+  
+
+  converter()
 }
+
+
 
   const moedas = [
     {
       chave: "USD-USD",
       cotacao: 1.00,
       origem: {
+        bandeira: "img/us.png",
         singular: "Dólar dos EUA",
         plural: "Dólares dos EUA"
       },
