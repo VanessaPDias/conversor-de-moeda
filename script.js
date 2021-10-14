@@ -1,16 +1,23 @@
 window.onload = atribuirEvento;
 
 function atribuirEvento(){
-  document.querySelector("#btn-converter").onclick = converter;
   document.querySelector("#inverter-moedas").onclick = inverter;
+  document.querySelector("#input-quantia").oninput = trocarValor;
+  document.querySelector("#input-moeda-origem").oninput = trocarOpcaoOrigem;
+  document.querySelector("#input-moeda-destino").oninput = trocarOpcaoDestino;
+  converter()
 }
 
 function pegarDadosInput() {
-  const valor = parseFloat(document.querySelector("#input-quantia").value);
-  
+  let quantia = document.querySelector("#input-quantia").value;
   const opcaoOrigem = document.querySelector("#input-moeda-origem").value;  
   const opcaoDestino = document.querySelector("#input-moeda-destino").value;
-  
+
+  if(quantia == ""){
+    quantia = 0;
+  }
+  const valor = parseFloat(quantia);
+
   return {valor, opcaoOrigem, opcaoDestino};
 }
 
@@ -58,7 +65,6 @@ function converter(){
       moedaDestinoSingular = moedas[i].destino.singular;
       moedaDestinoPlural = moedas[i].destino.plural;
       bandeiraOrigem = moedas[i].origem.bandeira;
-      console.log(bandeiraOrigem)
       cotacao = moedas[i].cotacao;
     }
   }
@@ -74,6 +80,24 @@ function inverter(){
   opcoesOrigem.value = destino;
   
 
+  converter()
+}
+
+function trocarValor(evento){
+  if(isNaN(evento.target.value)){
+    document.querySelector("#msg-erro").innerHTML = `Informe um valor válido`;
+  } else {
+    document.querySelector("#msg-erro").innerHTML = "";
+    converter()
+  }
+  
+}
+
+function trocarOpcaoOrigem(){
+  converter()
+}
+
+function trocarOpcaoDestino(){
   converter()
 }
 
