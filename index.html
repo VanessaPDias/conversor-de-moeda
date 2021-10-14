@@ -27,7 +27,7 @@
                 <div class="col-sm-12 mb-2" id="quantia">
                   <label for="input-quantia">Valor</label>
                   <div class="input-group mt-1">
-                    <span class="input-group-text" id="icone-moeda"></span>
+                    <span class="input-group-text" id="simbolo-moeda-origem">$</span>
                     <input type="text" id="input-quantia" class="form-control" inputmode="decimal" autocomplete="off" value="1,00" >
                   </div>
                   <p id="msg-erro" style="color: red; font-size: small;"></p>
@@ -36,7 +36,7 @@
                   <label for="input-moeda-origem">De</label>
                   <div class="input-group mt-1">
                     <label class="input-group-text" for="input-moeda-origem">
-                      <img id="bandeira-origem" >
+                      <img id="bandeira-origem" src="/img/USD.png">
                     </label>
                     <select class="form-select" id="input-moeda-origem">
                       <option value="USD" selected>USD - Dólar dos EUA</option>
@@ -56,7 +56,7 @@
                   <label for="input-moeda-destuno">Para</label>
                   <div class="input-group mt-1">
                     <label class="input-group-text" for="input-moeda-destino">
-                      <img src="" alt="">
+                      <img id="bandeira-destino" src="/img/EUR.png" alt="">
                     </label>
                     <select class="form-select" id="input-moeda-destino">
                       <option value="USD">USD - Dólar dos EUA</option>
