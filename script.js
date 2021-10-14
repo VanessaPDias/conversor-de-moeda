@@ -1,7 +1,11 @@
 window.onload = atribuirEvento;
 
 function atribuirEvento(){
-  document.querySelector("#inverter-moedas").onclick = inverter;
+  const botoesInverter = document.querySelectorAll(".inverter-moedas");
+  botoesInverter.forEach(element => {
+    element.onclick = inverter;
+  });
+
   document.querySelector("#input-quantia").oninput = trocarValor;
   document.querySelector("#input-moeda-origem").oninput = trocarOpcaoOrigem;
   document.querySelector("#input-moeda-destino").oninput = trocarOpcaoDestino;

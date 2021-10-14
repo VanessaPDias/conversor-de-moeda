@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,8 +23,7 @@
           <div class="main row mt-5">
             <div class="col shadow p-3 mb-5 bg-body rounded">
               <div class="dados-conversao row">
-                <div class="col-1"></div>
-                <div class="col-sm-12 mb-2" id="quantia">
+                <div class="col-sm-12 mb-2 col-lg-3" id="quantia">
                   <label for="input-quantia">Valor</label>
                   <div class="input-group mt-1">
                     <span class="input-group-text" id="simbolo-moeda-origem">$</span>
@@ -32,7 +31,7 @@
                   </div>
                   <p id="msg-erro" style="color: red; font-size: small;"></p>
                 </div>
-                <div class="col-sm-12" id="moeda-origem">
+                <div class="col-sm-12 col-lg-4" id="moeda-origem">
                   <label for="input-moeda-origem">De</label>
                   <div class="input-group mt-1">
                     <label class="input-group-text" for="input-moeda-origem">
@@ -46,13 +45,20 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-sm-12 mb-3" id="inverter-dados">
+                <div class="col-sm-12 mb-3 col-lg-1" id="inverter-dados">
                   <label for=""></label>
-                  <div class="mt-1">
-                    <button type="button" class="btn btn-outline-primary rounded-circle" id="inverter-moedas"><i class="bi bi-arrow-down-up"></i></button>
+                  <div class="mt-1 d-xs-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
+                    <button type="button" class="btn btn-outline-primary rounded-circle inverter-moedas" >
+                      <i  class="bi bi-arrow-down-up"></i>
+                    </button>
+                  </div>
+                  <div class="text-center mt-1 d-xs-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+                    <button type="button" class="btn btn-outline-primary rounded-circle inverter-moedas" >
+                      <i class="bi bi-arrow-left-right"></i>
+                    </button>
                   </div>
                 </div>
-                <div class="col-sm-12" id="moeda-destino">
+                <div class="col-sm-12 col-lg-4" id="moeda-destino">
                   <label for="input-moeda-destuno">Para</label>
                   <div class="input-group mt-1">
                     <label class="input-group-text" for="input-moeda-destino">
@@ -66,17 +72,20 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-1"></div>
               </div>
-              <div class="row mt-4 p-2">
-                <div class="col-sm-6">
-                  <div>
-                   <p id="quantia-moedaOrigem" style="display:inline-flex;"></p>
-                   <h4 id="quantiaConvertida-moedaDestino"  style="display:inline-flex;"></h4> 
+              <div class="row mt-4">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <div class="col">
+                      <p id="quantia-moedaOrigem" style="display: inline-block;"></p>
+                      <h4 id="quantiaConvertida-moedaDestino" style="display: inline-block;"></h4>
+                    </div>
                   </div>
                   
-                  <div >
-                    <p id="valor-unitario-origem"></p>
+                  <div class="row" >
+                    <div class="col">
+                      <p id="valor-unitario-origem"></p>
+                    </div>
                   </div>
                 </div>
               </div>
