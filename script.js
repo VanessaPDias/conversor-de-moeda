@@ -16,11 +16,16 @@ function pegarDadosInput() {
   let quantia = document.querySelector("#input-quantia").value;
   const opcaoOrigem = document.querySelector("#input-moeda-origem").value;  
   const opcaoDestino = document.querySelector("#input-moeda-destino").value;
+  
 
   if(quantia == ""){
     quantia = 0;
   }
-  const valor = parseFloat(quantia);
+
+  const re = /,/gi;
+  const valorConvertido = quantia.replace(re, '.');
+
+  const valor = parseFloat(valorConvertido);
 
   return {valor, opcaoOrigem, opcaoDestino};
 }
@@ -95,7 +100,12 @@ function inverter(){
 }
 
 function trocarValor(evento){
-  if(isNaN(evento.target.value)){
+  let valorInput = evento.target.value;
+  const re = /,/gi;
+  const valor = valorInput.replace(re, '.');
+
+  console.log(valor)
+  if(isNaN(valor)){
     document.querySelector("#msg-erro").innerHTML = `Informe um valor válido`;
   } else {
     document.querySelector("#msg-erro").innerHTML = "";
