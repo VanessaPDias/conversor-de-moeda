@@ -12,23 +12,26 @@ function atribuirEvento(){
   converter()
 }
 
-function pegarDadosInput() {
-  let quantia = document.querySelector("#input-quantia").value;
-  const opcaoOrigem = document.querySelector("#input-moeda-origem").value;  
-  const opcaoDestino = document.querySelector("#input-moeda-destino").value;
-  
-
-  if(quantia == ""){
-    quantia = 0;
+function pegarValorDoInput() {
+  let elementoValor = document.querySelector("#input-quantia").value;
+ 
+  if(elementoValor == ""){
+    elementoValor = 0
   }
 
-  const re = /,/gi;
-  const valorConvertido = quantia.replace(re, '.');
-
-  const valor = parseFloat(valorConvertido);
-
-  return {valor, opcaoOrigem, opcaoDestino};
+  const virgula = /,/gi;
+  const valorInicial = elementoValor.replace(virgula, '.');
+  return parseFloat(valorInicial);
 }
+
+function pegarOrigemDoInput(){
+  return document.querySelector("#input-moeda-origem").value;
+}
+function pegarDestinoDoInput(){
+  return document.querySelector("#input-moeda-destino").value;
+}
+
+
 
 function pegarElementosResultado() {
   const valorMoedaOrigem = document.querySelector("#quantia-moedaOrigem");
@@ -41,9 +44,11 @@ function pegarElementosResultado() {
 }
 
 function imprimirResultadoNaTela(valorConvertido, simbolo, moedaOrigemSingular, moedaOrigemPlural, moedaDestinoSingular,moedaDestinoPlural, cotacao) {
-  const dadosDeEntrada = pegarDadosInput()
+  const valorDeEntrada = pegarValorDoInput();
+  const origemDeEntrada = pegarOrigemDoInput();
+  const destinoDeEntrada = pegarDestinoDoInput();  
   const elementosParaImprimirDados = pegarElementosResultado();
-  if(dadosDeEntrada.valor > 1){
+  if(valorDeEntrada > 1){
     moedaOrigemSingular = moedaOrigemPlural;
   };
   if(valorConvertido > 1){
@@ -51,14 +56,16 @@ function imprimirResultadoNaTela(valorConvertido, simbolo, moedaOrigemSingular, 
   };
 
   elementosParaImprimirDados.simboloMoedaOrigem.innerHTML = simbolo;
-  elementosParaImprimirDados.valorMoedaOrigem.innerHTML = `${dadosDeEntrada.valor} ${moedaOrigemSingular} = `;
+  elementosParaImprimirDados.valorMoedaOrigem.innerHTML = `${valorDeEntrada} ${moedaOrigemSingular} = `;
   elementosParaImprimirDados.valorMoedaDestino.innerHTML = `${valorConvertido} ${moedaDestinoSingular}`
-  elementosParaImprimirDados.valorUnitarioMoedaOrigem.innerHTML = `1 ${dadosDeEntrada.opcaoOrigem} = ${cotacao} ${dadosDeEntrada.opcaoDestino}`;
+  elementosParaImprimirDados.valorUnitarioMoedaOrigem.innerHTML = `1 ${origemDeEntrada} = ${cotacao} ${destinoDeEntrada}`;
 }
 
 function converter(){
-  const dadosParaConversao = pegarDadosInput();
-  let chaveParaConversao = dadosParaConversao.opcaoOrigem + "-" + dadosParaConversao.opcaoDestino;
+  const valorDeEntrada = pegarValorDoInput();
+  const origemDeEntrada = pegarOrigemDoInput();
+  const destinoDeEntrada = pegarDestinoDoInput(); 
+  let chaveParaConversao = origemDeEntrada + "-" + destinoDeEntrada;
   let valorConvertido;
   let simbolo;
   let moedaOrigemSingular;
@@ -71,7 +78,7 @@ function converter(){
   for( let i = 0; i < moedas.length; i++){
     
     if(chaveParaConversao == moedas[i].chave){
-      valorConvertido = dadosParaConversao.valor * moedas[i].cotacao;
+      valorConvertido = valorDeEntrada * moedas[i].cotacao;
       simbolo = moedas[i].origem.simbolo;
       moedaOrigemSingular = moedas[i].origem.singular;
       moedaOrigemPlural = moedas[i].origem.plural;
@@ -104,7 +111,6 @@ function trocarValor(evento){
   const re = /,/gi;
   const valor = valorInput.replace(re, '.');
 
-  console.log(valor)
   if(isNaN(valor)){
     document.querySelector("#msg-erro").innerHTML = `Informe um valor válido`;
   } else {
