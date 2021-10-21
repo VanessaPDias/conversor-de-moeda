@@ -26,7 +26,7 @@
                 <div class="col-sm-12 mb-2 col-lg-3" id="quantia">
                   <label for="input-quantia">Valor</label>
                   <div class="input-group mt-1">
-                    <span class="input-group-text" id="simbolo-moeda-origem">$</span>
+                    <span class="input-group-text" id="simbolo-moeda-origem"></span>
                     <input type="text" id="input-quantia" class="form-control" inputmode="decimal" autocomplete="off" value="1,00" >
                   </div>
                   <p id="msg-erro" style="color: red; font-size: small;"></p>
@@ -35,13 +35,17 @@
                   <label for="input-moeda-origem">De</label>
                   <div class="input-group mt-1">
                     <label class="input-group-text" for="input-moeda-origem">
-                      <img id="bandeira-origem" src="/img/USD.png">
+                      <img id="bandeira-origem" width="21px" height="16px" src="">
                     </label>
                     <select class="form-select" id="input-moeda-origem">
-                      <option value="USD" selected>USD - Dólar dos EUA</option>
-                      <option value="EUR">EUR - Euro</option>
-                      <option value="BRL">BRL - Real Brasileiro</option>
-                      <option value="GBP">GBP - Libra Esterlina</option>
+                      <option value="USD" data-simbolo="$" selected>USD - Dólar dos EUA</option>
+                      <option value="EUR" data-simbolo="€">EUR - Euro</option>
+                      <option value="GBP" data-simbolo="£">GBP - Libra Esterlina</option>
+                      <option value="JPY" data-simbolo="¥">JPY - Iene Japonês</option>
+                      <option value="AUD" data-simbolo="A$">AUD - Dólar Australiano</option>
+                      <option value="CHF" data-simbolo="Fr">CHF - Franco Suiço</option>
+                      <option value="CAD" data-simbolo="C$">CAD - Dólar Candadence</option>
+                      <option value="BRL" data-simbolo="R$">BRL - Real Brasileiro</option>
                     </select>
                   </div>
                 </div>
@@ -62,13 +66,17 @@
                   <label for="input-moeda-destuno">Para</label>
                   <div class="input-group mt-1">
                     <label class="input-group-text" for="input-moeda-destino">
-                      <img id="bandeira-destino" src="/img/EUR.png" alt="">
+                      <img id="bandeira-destino" width="21px" height="16px" src="" alt="">
                     </label>
                     <select class="form-select" id="input-moeda-destino">
-                      <option value="USD">USD - Dólar dos EUA</option>
-                      <option value="EUR" selected>EUR - Euro</option>
-                      <option value="BRL">BRL - Real Brasileiro</option>
-                      <option value="GBP">GBP - Libra Esterlina</option>
+                      <option value="USD" data-simbolo="$">USD - Dólar dos EUA</option>
+                      <option value="EUR" data-simbolo="€"selected>EUR - Euro</option>
+                      <option value="GBP" data-simbolo="£">GBP - Libra Esterlina</option>
+                      <option value="JPY" data-simbolo="¥">JPY - Iene Japonês</option>
+                      <option value="AUD" data-simbolo="A$">AUD - Dólar Australiano</option>
+                      <option value="CHF" data-simbolo="Fr">CHF - Franco Suiço</option>
+                      <option value="CAD" data-simbolo="C$">CAD - Dólar Candadence</option>
+                      <option value="BRL" data-simbolo="R$">BRL - Real Brasileiro</option>
                     </select>
                   </div>
                 </div>
