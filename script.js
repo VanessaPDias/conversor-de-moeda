@@ -1,7 +1,5 @@
 window.onload = atribuirEvento;
 
-
-
 function atribuirEvento() {
   const botoesInverter = document.querySelectorAll(".inverter-moedas");
   botoesInverter.forEach(element => {
@@ -9,13 +7,11 @@ function atribuirEvento() {
   });
 
   document.querySelector("#input-quantia").oninput = trocarValor;
-  document.querySelector("#input-moeda-origem").oninput = trocarOpcaoOrigem;
-  document.querySelector("#input-moeda-destino").oninput = trocarOpcaoDestino;
+  document.querySelector("#input-moeda-de").oninput = trocarOpcaoMoedaDe;
+  document.querySelector("#input-moeda-para").oninput = trocarOpcaoMoedaPara;
 
   converter()
 }
-
-
 
 function pegarValorDoInput() {
   let elementoValor = document.querySelector("#input-quantia").value;
@@ -29,47 +25,54 @@ function pegarValorDoInput() {
   return parseFloat(valorInicial);
 }
 
-function pegarOrigemDoInput() {
-  return document.querySelector("#input-moeda-origem").value;
+function pegarMoedaDeInput() {
+  return document.querySelector("#input-moeda-de");
 }
-function pegarDestinoDoInput() {
-  return document.querySelector("#input-moeda-destino").value;
+function pegarMoedaParaInput() {
+  return document.querySelector("#input-moeda-para");
 }
 
 function pegarElementosResultado() {
-  const valorMoedaOrigem = document.querySelector("#quantia-moedaOrigem");
-  const valorMoedaDestino = document.querySelector("#quantiaConvertida-moedaDestino");
-  const valorUnitarioMoedaOrigem = document.querySelector("#valor-unitario-origem");
-  const valorUnitarioMoedaDestino = document.querySelector("#valor-unitario-destino");
+  const valorMoedaDe = document.querySelector("#quantia-moedaDe");
+  const valorMoedaPara = document.querySelector("#quantiaConvertida-moedaPara");
+  const valorUnitarioMoedaDe = document.querySelector("#valor-unitario-de");
+  const valorUnitarioMoedaPara = document.querySelector("#valor-unitario-para");
 
-  return { valorMoedaOrigem, valorMoedaDestino, valorUnitarioMoedaOrigem, valorUnitarioMoedaDestino };
+  return { valorMoedaDe: valorMoedaDe, valorMoedaPara: valorMoedaPara, valorUnitarioMoedaDe: valorUnitarioMoedaDe, valorUnitarioMoedaPara: valorUnitarioMoedaPara };
 }
 
-function imprimirResultadoNaTela(valorConvertido, moedaDeOrigem, moedaDeDestino, cotacao) {
-  const valorDeEntrada = pegarValorDoInput();
-  const origemDeEntrada = pegarOrigemDoInput();
-  const destinoDeEntrada = pegarDestinoDoInput();
-  const elementosParaImprimirDados = pegarElementosResultado();
+function imprimirResultadoNaTela(valorConvertido, moedaDe, moedaPara, cotacao) {
+  const valor = pegarValorDoInput();
+  const de = pegarMoedaDeInput().value;
+  const para = pegarMoedaParaInput().value;
+  const elementosParaImprimirResultados = pegarElementosResultado();
   
-  elementosParaImprimirDados.valorMoedaOrigem.innerHTML = `${valorDeEntrada} ${moedaDeOrigem} = `;
-  elementosParaImprimirDados.valorMoedaDestino.innerHTML = `${valorConvertido} ${moedaDeDestino}`
-  elementosParaImprimirDados.valorUnitarioMoedaOrigem.innerHTML = `1 ${origemDeEntrada} = ${cotacao} ${destinoDeEntrada}`;
+  elementosParaImprimirResultados.valorMoedaDe.innerHTML = `${valor} ${moedaDe} = `;
+  elementosParaImprimirResultados.valorMoedaPara.innerHTML = `${valorConvertido} ${moedaPara}`
+  elementosParaImprimirResultados.valorUnitarioMoedaDe.innerHTML = `1 ${de} = ${cotacao} ${para}`;
 }
 
 function converter() {
-  const valorDeEntrada = pegarValorDoInput();
-  const origemDeEntrada = pegarOrigemDoInput();
-  const destinoDeEntrada = pegarDestinoDoInput();
+  const valor = pegarValorDoInput();
+  const moedaDe = pegarMoedaDeInput().value;
+  const moedaPara = pegarMoedaParaInput().value;
 
-  const elementoSelect = document.querySelector("#input-moeda-origem");
-  const simboloMoedaOrigem = elementoSelect.options[elementoSelect.selectedIndex].dataset.simbolo;
+  const elementoSelect = document.querySelector("#input-moeda-de");
+  const simboloMoedaDe = elementoSelect.options[elementoSelect.selectedIndex].dataset.simbolo;
   
-  document.querySelector("#bandeira-origem").src = `/img/${origemDeEntrada}.png`;
-  document.querySelector("#bandeira-destino").src = `/img/${destinoDeEntrada}.png`;
-  document.querySelector("#simbolo-moeda-origem").innerHTML = simboloMoedaOrigem;
+  document.querySelector("#bandeira-de").src = `/img/${moedaDe}.png`;
+  document.querySelector("#bandeira-para").src = `/img/${moedaPara}.png`;
+  document.querySelector("#simbolo-moeda-de").innerHTML = simboloMoedaDe;
 
-  let chaveParaConversao = origemDeEntrada + "-" + destinoDeEntrada;
+  let chaveParaConversao = moedaDe + "-" + moedaPara;
 
+  if(moedaDe == moedaPara){
+    const nomeMoedaDe = pegarMoedaDeInput().options[pegarMoedaDeInput().selectedIndex].textContent.slice(6);
+    const nomeMoedaPara = pegarMoedaParaInput().options[pegarMoedaParaInput().selectedIndex].textContent.slice(6);
+    
+    imprimirResultadoNaTela(valor, nomeMoedaDe, nomeMoedaPara, 1);
+    return;
+  }
 
   fetch(`https://economia.awesomeapi.com.br/last/${chaveParaConversao}`)
     .then(function (respostaDoServidor) {
@@ -79,33 +82,31 @@ function converter() {
 
       if(respostaDoServidor.status == 404) {
         let f = {}
-        f[origemDeEntrada + destinoDeEntrada] = { bid: 1, name: origemDeEntrada }
+        f[moedaDe + moedaPara] = { bid: 1, name: moedaDe }
         return f;
-        // return f[origemDeEntrada + destinoDeEntrada] = 
       } 
     })
     .then(function (respostaConvertidaParaObj) {
-      console.log(respostaConvertidaParaObj);
-      const elementoObjeto = origemDeEntrada + destinoDeEntrada;
-      const nomeMoedas = respostaConvertidaParaObj[elementoObjeto].name.split("/");
-      const cotacao = respostaConvertidaParaObj[elementoObjeto].bid;      
+      const nomeDoObj = moedaDe + moedaPara;
+      const nomeMoedas = respostaConvertidaParaObj[nomeDoObj].name.split("/");
+      const cotacao = respostaConvertidaParaObj[nomeDoObj].bid;      
       
-      imprimirResultadoNaTela(valorDeEntrada * cotacao, nomeMoedas[0], nomeMoedas[1], cotacao)
+      imprimirResultadoNaTela(valor * cotacao, nomeMoedas[0], nomeMoedas[1], cotacao)
     })
   }
 
 function inverter() {
-  const opcoesOrigem = document.querySelector("#input-moeda-origem");
-  const opcoesDestino = document.querySelector("#input-moeda-destino");
-  const oDestino = opcoesDestino.value;
-  opcoesDestino.value = opcoesOrigem.value;
-  opcoesOrigem.value = oDestino;
+  let moedaDe = pegarMoedaDeInput();
+  let moedaPara = pegarMoedaParaInput();
+  const mPara = moedaPara.value;
+  moedaPara.value = moedaDe.value;
+  moedaDe.value = mPara;
 
-  const bandeiraOrigem = document.querySelector("#bandeira-origem");
-  const bandeiraDestino = document.querySelector("#bandeira-destino");
-  const bDestino = bandeiraDestino.src;
-  bandeiraDestino.src = bandeiraOrigem.src;
-  bandeiraOrigem.src = bDestino;
+  const bandeiraDe = document.querySelector("#bandeira-de");
+  const bandeiraPara = document.querySelector("#bandeira-para");
+  const bPara = bandeiraPara.src;
+  bandeiraPara.src = bandeiraDe.src;
+  bandeiraDe.src = bPara;
 
   converter()
 }
@@ -124,18 +125,18 @@ function trocarValor(evento) {
 
 }
 
-function trocarOpcaoOrigem(evento) {
-  const valorOpcaoOrigem = evento.target.value;
+function trocarOpcaoMoedaDe(evento) {
+  const valorOpcaoDe = evento.target.value;
 
-  document.querySelector("#bandeira-origem").src = `/img/${valorOpcaoOrigem}.png`;
+  document.querySelector("#bandeira-de").src = `/img/${valorOpcaoDe}.png`;
 
   converter()
 }
 
-function trocarOpcaoDestino(evento) {
-  const valorOpcaoDestino = evento.target.value;
+function trocarOpcaoMoedaPara(evento) {
+  const valorOpcaoPara = evento.target.value;
 
-  document.querySelector("#bandeira-destino").src = `/img/${valorOpcaoDestino}.png`;
+  document.querySelector("#bandeira-para").src = `/img/${valorOpcaoPara}.png`;
   converter()
 }
 

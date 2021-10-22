@@ -26,18 +26,18 @@
                 <div class="col-sm-12 mb-2 col-lg-3" id="quantia">
                   <label for="input-quantia">Valor</label>
                   <div class="input-group mt-1">
-                    <span class="input-group-text" id="simbolo-moeda-origem"></span>
+                    <span class="input-group-text" id="simbolo-moeda-de"></span>
                     <input type="text" id="input-quantia" class="form-control" inputmode="decimal" autocomplete="off" value="1,00" >
                   </div>
                   <p id="msg-erro" style="color: red; font-size: small;"></p>
                 </div>
-                <div class="col-sm-12 col-lg-4" id="moeda-origem">
-                  <label for="input-moeda-origem">De</label>
+                <div class="col-sm-12 col-lg-4" id="moeda-de">
+                  <label for="input-moeda-de">De</label>
                   <div class="input-group mt-1">
-                    <label class="input-group-text" for="input-moeda-origem">
-                      <img id="bandeira-origem" width="21px" height="16px" src="">
+                    <label class="input-group-text" for="input-moeda-de">
+                      <img id="bandeira-de" width="21px" height="16px" src="">
                     </label>
-                    <select class="form-select" id="input-moeda-origem">
+                    <select class="form-select" id="input-moeda-de">
                       <option value="USD" data-simbolo="$" selected>USD - Dólar dos EUA</option>
                       <option value="EUR" data-simbolo="€">EUR - Euro</option>
                       <option value="GBP" data-simbolo="£">GBP - Libra Esterlina</option>
@@ -62,13 +62,13 @@
                     </button>
                   </div>
                 </div>
-                <div class="col-sm-12 col-lg-4" id="moeda-destino">
-                  <label for="input-moeda-destuno">Para</label>
+                <div class="col-sm-12 col-lg-4" id="moeda-para">
+                  <label for="input-moeda-destino">Para</label>
                   <div class="input-group mt-1">
-                    <label class="input-group-text" for="input-moeda-destino">
-                      <img id="bandeira-destino" width="21px" height="16px" src="" alt="">
+                    <label class="input-group-text" for="input-moeda-para">
+                      <img id="bandeira-para" width="21px" height="16px" src="" alt="">
                     </label>
-                    <select class="form-select" id="input-moeda-destino">
+                    <select class="form-select" id="input-moeda-para">
                       <option value="USD" data-simbolo="$">USD - Dólar dos EUA</option>
                       <option value="EUR" data-simbolo="€"selected>EUR - Euro</option>
                       <option value="GBP" data-simbolo="£">GBP - Libra Esterlina</option>
@@ -85,14 +85,14 @@
                 <div class="col-sm-12">
                   <div class="row">
                     <div class="col">
-                      <p id="quantia-moedaOrigem" style="display: inline-block;"></p>
-                      <h4 id="quantiaConvertida-moedaDestino" style="display: inline-block;"></h4>
+                      <p id="quantia-moedaDe" style="display: inline-block;"></p>
+                      <h4 id="quantiaConvertida-moedaPara" style="display: inline-block;"></h4>
                     </div>
                   </div>
                   
                   <div class="row" >
                     <div class="col">
-                      <p id="valor-unitario-origem"></p>
+                      <p id="valor-unitario-de"></p>
                     </div>
                   </div>
                 </div>
