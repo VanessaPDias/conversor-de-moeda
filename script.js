@@ -79,12 +79,6 @@ function converter() {
       if (respostaDoServidor.ok == true) {
         return respostaDoServidor.json();
       }
-
-      if(respostaDoServidor.status == 404) {
-        let f = {}
-        f[moedaDe + moedaPara] = { bid: 1, name: moedaDe }
-        return f;
-      } 
     })
     .then(function (respostaConvertidaParaObj) {
       const nomeDoObj = moedaDe + moedaPara;
@@ -113,6 +107,13 @@ function inverter() {
 
 function trocarValor(evento) {
   let valorInput = evento.target.value;
+
+  if(valorInput.trim() === ""){
+    document.querySelector("#msg-erro").innerHTML = `Informe um valor válido`
+    return;
+  }
+  
+
   const re = /,/gi;
   const valor = valorInput.replace(re, '.');
 
