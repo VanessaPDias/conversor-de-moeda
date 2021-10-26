@@ -13,5 +13,8 @@ Conhecimentos aplicados:
 * Métodos - replace, slice, split
 * API fetch
 
+Mobile
 ![imagemMobile](https://user-images.githubusercontent.com/55095687/138464492-7bc62dec-0e22-4202-804c-6de3a501c5ab.jpg)
-![image](https://user-images.githubusercontent.com/55095687/138464852-7529bc56-9aa1-4863-b097-a97e70c08b57.png)
+
+Desktop
+![image](https://user-images.githubusercontent.com/55095687/138938189-a7f118dc-3ab4-4535-9698-e63f5ff1ab87.png)
