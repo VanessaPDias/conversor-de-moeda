@@ -6,11 +6,48 @@ function atribuirEvento() {
     element.onclick = inverter;
   });
 
-  document.querySelector("#input-quantia").oninput = trocarValor;
+  document.querySelector("#input-quantia").oninput = validarValorDoInput;
   document.querySelector("#input-moeda-de").oninput = trocarOpcaoMoedaDe;
   document.querySelector("#input-moeda-para").oninput = trocarOpcaoMoedaPara;
 
   converter()
+}
+
+function converter() {
+  const valor = pegarValorDoInput();
+  const moedaDe = pegarMoedaDeInput().value;
+  const moedaPara = pegarMoedaParaInput().value;
+
+  const elementoSelect = document.querySelector("#input-moeda-de");
+  const simboloMoedaDe = elementoSelect.options[elementoSelect.selectedIndex].dataset.simbolo;
+
+  document.querySelector("#bandeira-de").src = `/img/${moedaDe}.png`;
+  document.querySelector("#bandeira-para").src = `/img/${moedaPara}.png`;
+  document.querySelector("#simbolo-moeda-de").innerHTML = simboloMoedaDe;
+
+  let chaveParaConversao = moedaDe + "-" + moedaPara;
+
+  if (moedaDe == moedaPara) {
+    const nomeMoedaDe = pegarMoedaDeInput().options[pegarMoedaDeInput().selectedIndex].textContent.slice(6);
+    const nomeMoedaPara = pegarMoedaParaInput().options[pegarMoedaParaInput().selectedIndex].textContent.slice(6);
+
+    imprimirResultadoNaTela(valor, nomeMoedaDe, nomeMoedaPara, 1);
+    return;
+  }
+
+  fetch(`https://economia.awesomeapi.com.br/last/${chaveParaConversao}`)
+    .then(function (respostaDoServidor) {
+      if (respostaDoServidor.ok == true) {
+        return respostaDoServidor.json();
+      }
+    })
+    .then(function (respostaConvertidaParaObj) {
+      const nomeDoObj = moedaDe + moedaPara;
+      const nomeMoedas = respostaConvertidaParaObj[nomeDoObj].name.split("/");
+      const cotacao = respostaConvertidaParaObj[nomeDoObj].bid;
+
+      imprimirResultadoNaTela(valor * cotacao, nomeMoedas[0], nomeMoedas[1], cotacao)
+    })
 }
 
 function pegarValorDoInput() {
@@ -46,48 +83,11 @@ function imprimirResultadoNaTela(valorConvertido, moedaDe, moedaPara, cotacao) {
   const de = pegarMoedaDeInput().value;
   const para = pegarMoedaParaInput().value;
   const elementosParaImprimirResultados = pegarElementosResultado();
-  
+
   elementosParaImprimirResultados.valorMoedaDe.innerHTML = `${valor} ${moedaDe} = `;
   elementosParaImprimirResultados.valorMoedaPara.innerHTML = `${valorConvertido} ${moedaPara}`
   elementosParaImprimirResultados.valorUnitarioMoedaDe.innerHTML = `1 ${de} = ${cotacao} ${para}`;
 }
-
-function converter() {
-  const valor = pegarValorDoInput();
-  const moedaDe = pegarMoedaDeInput().value;
-  const moedaPara = pegarMoedaParaInput().value;
-
-  const elementoSelect = document.querySelector("#input-moeda-de");
-  const simboloMoedaDe = elementoSelect.options[elementoSelect.selectedIndex].dataset.simbolo;
-  
-  document.querySelector("#bandeira-de").src = `/img/${moedaDe}.png`;
-  document.querySelector("#bandeira-para").src = `/img/${moedaPara}.png`;
-  document.querySelector("#simbolo-moeda-de").innerHTML = simboloMoedaDe;
-
-  let chaveParaConversao = moedaDe + "-" + moedaPara;
-
-  if(moedaDe == moedaPara){
-    const nomeMoedaDe = pegarMoedaDeInput().options[pegarMoedaDeInput().selectedIndex].textContent.slice(6);
-    const nomeMoedaPara = pegarMoedaParaInput().options[pegarMoedaParaInput().selectedIndex].textContent.slice(6);
-    
-    imprimirResultadoNaTela(valor, nomeMoedaDe, nomeMoedaPara, 1);
-    return;
-  }
-
-  fetch(`https://economia.awesomeapi.com.br/last/${chaveParaConversao}`)
-    .then(function (respostaDoServidor) {
-      if (respostaDoServidor.ok == true) {
-        return respostaDoServidor.json();
-      }
-    })
-    .then(function (respostaConvertidaParaObj) {
-      const nomeDoObj = moedaDe + moedaPara;
-      const nomeMoedas = respostaConvertidaParaObj[nomeDoObj].name.split("/");
-      const cotacao = respostaConvertidaParaObj[nomeDoObj].bid;      
-      
-      imprimirResultadoNaTela(valor * cotacao, nomeMoedas[0], nomeMoedas[1], cotacao)
-    })
-  }
 
 function inverter() {
   let moedaDe = pegarMoedaDeInput();
@@ -105,14 +105,14 @@ function inverter() {
   converter()
 }
 
-function trocarValor(evento) {
+function validarValorDoInput(evento) {
   let valorInput = evento.target.value;
 
-  if(valorInput.trim() === ""){
+  if (valorInput.trim() === "") {
     document.querySelector("#msg-erro").innerHTML = `Informe um valor válido`
     return;
   }
-  
+
 
   const re = /,/gi;
   const valor = valorInput.replace(re, '.');
