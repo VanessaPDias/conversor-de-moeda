@@ -15,7 +15,7 @@ Conhecimentos aplicados:
 
 Mobile
 
-![imagemMobile](https://user-images.githubusercontent.com/55095687/138464492-7bc62dec-0e22-4202-804c-6de3a501c5ab.jpg)
+![image](https://user-images.githubusercontent.com/55095687/138938748-453cd94f-5714-459c-8dd9-9a07bc1cfda6.png)
 
 Desktop
 
