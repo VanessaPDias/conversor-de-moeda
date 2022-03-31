@@ -14,6 +14,9 @@ Conhecimentos aplicados:
 * API fetch
 
 
+https://green-coast-0e923f603.1.azurestaticapps.net
+
+
 https://user-images.githubusercontent.com/55095687/143065246-1e03400d-7c82-4ce7-a77e-20c01b0a9db0.mp4
 
 
